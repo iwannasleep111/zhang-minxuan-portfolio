@@ -22,6 +22,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#chat">Ask Me</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -155,8 +156,92 @@
     </div>
   </section>
 
+  <!-- ASK ME (grounded chatbot) -->
+  <section id="chat" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title reveal">Ask Me</h2>
+      <p class="section-sub reveal">A chatbot grounded in my resume — ask it about my background, experience, or skills.</p>
+
+      <!-- ========== 1. STYLES ========== -->
+      <style>
+        #chat-widget{max-width:560px;margin:0 auto;border:1px solid #d0d8e0;border-radius:14px;
+          overflow:hidden;font-family:'Calibri','Segoe UI',system-ui,sans-serif;background:#fff;}
+        #chat-header{background:#0f2b46;color:#fff;padding:.9rem 1.1rem;font-weight:700;font-size:1rem;}
+        #chat-header small{display:block;font-weight:400;color:#9ec5ff;font-size:.8rem;margin-top:.15rem;}
+        #chat-log{height:340px;overflow-y:auto;padding:1rem;background:#f8f9fb;}
+        .msg{margin:.5rem 0;padding:.6rem .85rem;border-radius:12px;max-width:85%;line-height:1.45;
+          font-size:.95rem;white-space:pre-wrap;}
+        .msg.user{background:#2563eb;color:#fff;margin-left:auto;border-bottom-right-radius:3px;}
+        .msg.bot{background:#fff;border:1px solid #e2e8f0;color:#1f2d3d;border-bottom-left-radius:3px;}
+        .msg.bot.thinking{color:#94a3b8;font-style:italic;}
+        #chat-form{display:flex;border-top:1px solid #d0d8e0;}
+        #chat-input{flex:1;border:none;padding:.9rem 1rem;font-size:.95rem;font-family:inherit;outline:none;}
+        #chat-send{border:none;background:#0f2b46;color:#fff;padding:0 1.3rem;font-size:.95rem;
+          font-family:inherit;cursor:pointer;}
+        #chat-send:disabled{background:#94a3b8;cursor:default;}
+        #chat-disclaimer{font-size:.72rem;color:#94a3b8;text-align:center;padding:.5rem;background:#f8f9fb;}
+      </style>
+
+      <!-- ========== 2. THE CHAT BOX ========== -->
+      <div id="chat-widget" class="reveal">
+        <div id="chat-header">Ask me about my background<small>Grounded in my resume. Answers may be imperfect.</small></div>
+        <div id="chat-log"></div>
+        <form id="chat-form">
+          <input id="chat-input" type="text" placeholder="Ask a question…" autocomplete="off" maxlength="1000" />
+          <button id="chat-send" type="submit">Send</button>
+        </form>
+        <div id="chat-disclaimer">AI assistant. Each question is answered on its own. Conversations aren't stored.</div>
+      </div>
+
+      <!-- ========== 3. THE BEHAVIOR ========== -->
+      <script>
+        const log = document.getElementById('chat-log');
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('chat-send');
+
+        function addMessage(text, who, extraClass = '') {
+          const el = document.createElement('div');
+          el.className = 'msg ' + who + (extraClass ? ' ' + extraClass : '');
+          el.textContent = text;
+          log.appendChild(el);
+          log.scrollTop = log.scrollHeight;
+          return el;
+        }
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const question = input.value.trim();
+          if (!question) return;
+
+          addMessage(question, 'user');
+          input.value = '';
+          sendBtn.disabled = true;
+          const thinking = addMessage('Thinking…', 'bot', 'thinking');
+
+          try {
+            const res = await fetch('/api/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: question }),
+            });
+            const data = await res.json();
+            thinking.remove();
+            addMessage(data.reply || data.error || 'Something went wrong.', 'bot');
+          } catch (err) {
+            thinking.remove();
+            addMessage('Could not reach the assistant. Please try again.', 'bot');
+          } finally {
+            sendBtn.disabled = false;
+            input.focus();
+          }
+        });
+      </script>
+    </div>
+  </section>
+
   <!-- CONTACT -->
-  <section id="contact" class="section section-alt">
+  <section id="contact" class="section">
     <div class="container">
       <h2 class="section-title reveal">Contact</h2>
       <p class="section-sub reveal">Feel free to reach out &mdash; happy to connect.</p>

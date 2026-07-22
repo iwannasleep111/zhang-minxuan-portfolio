@@ -1,0 +1,10 @@
+{
+  "name": "zhang-minxuan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal site with a grounded /api/chat chatbot.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.97.1"
+  }
+}
