@@ -1,4 +1,4 @@
-# Zhang Minxuan — Personal Website
+# Minxuan Zhang — Personal Website
 
 A single-page personal site built with plain HTML, CSS, and JavaScript, plus a
 small serverless chatbot grounded in a resume-based knowledge file.
@@ -48,7 +48,7 @@ The hero section currently has no photo (optional, per your resume). To add one:
 1. Drop an image into `assets/` (e.g. `assets/photo.jpg`).
 2. In `index.html`, inside `<div class="hero-inner">`, add:
    ```html
-   <img src="assets/photo.jpg" alt="Zhang Minxuan" class="hero-photo">
+   <img src="assets/photo.jpg" alt="Minxuan Zhang" class="hero-photo">
    ```
 3. Add matching CSS in `css/styles.css` for `.hero-photo` (e.g. a rounded/circular image).
 

@@ -5,7 +5,7 @@ Everything here is public and safe for anyone (including a recruiter) to read.
 
 ## Snapshot
 
-Zhang Minxuan is an undergraduate student majoring in Taxation at the Central
+Minxuan Zhang is an undergraduate student majoring in Taxation at the Central
 University of Finance and Economics (CUFE), enrolled in the Global Tax
 Governance Honors Program (Class of 2025). She's driven by curiosity and a
 love of creative problem-solving: whether it's analyzing international tax
