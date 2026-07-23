@@ -3,9 +3,6 @@
   "functions": {
     "api/chat.js": {
       "includeFiles": "api/corpus.md"
-    },
-    "api/chatzmx.js": {
-      "includeFiles": "api/persona.md"
     }
   }
 }
